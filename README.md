@@ -14,7 +14,11 @@ The main contribution by our side was to create an updated structure of priority
 
 
 Contributors :  
+
 Priyal Jain         https://www.linkedin.com/in/priyal-jain-5b4ba616a/ 
+
 Ritik Jain          https://www.linkedin.com/in/ritik-jain-8092b6185/ 
+
 Saloni Ranka        https://www.linkedin.com/in/saloni-ranka-9837ba173/ 
+
 Sanyam Jain         https://www.linkedin.com/in/sanyam-jain-197901183/
