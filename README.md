@@ -1,7 +1,8 @@
 # CVRP
 
-The capacitated vehicle routing problem (CVRP) is a VRP in which vehicles with limited carrying capacity need to pick up or deliver items at various locations. The items have a quantity, such as weight or volume, and the vehicles have a maximum capacity that they can carry. The problem is to pick up or deliver the items for the least cost, while never exceeding the capacity of the vehicles. In this project a wholesaler is delivering the manufactured goods it sells to various retailers demanding a certain quantity of it.
+The capacitated vehicle routing problem (CVRP) is a constrained verion of the standard NP-Complete problem VRP in which vehicles with limited carrying capacity need to pick up or deliver items at various locations. The items have a quantity, such as weight or volume, and the vehicles have a maximum capacity that they can carry. The problem is to pick up or deliver the items for the least cost, while never exceeding the capacity of the vehicles. In this project a wholesaler is delivering the manufactured goods it sells to various retailers demanding a certain quantity of it.
 
+We provide an approx. optimal solution to this problem using Graphs, updated Priority Queues with the help of Dijkstra's Shortest Path Algorithm.
 
 Contribution by Saloni and Sanyam :
 
