@@ -4,12 +4,14 @@ The capacitated vehicle routing problem (CVRP) is a constrained verion of the st
 
 We provide an approx. optimal solution to this problem using Graphs, updated Priority Queues with the help of Dijkstra's Shortest Path Algorithm.
 
-Contribution by Saloni and Sanyam :
+This project was made by Priyal Jain, Ritik Jain, Saloni Ranka and Sanyam Jain in July 2020 in cpp programming language.
+
+Contribution by Saloni Ranka and Sanyam Jain:
 
 The main contribution by our side was the algorithm to decide which retailer should receive the next delivery. First we calculated the shortest distance (using dijkstra algorithm) of every retailer (with their respective parent node) the wholesaler sells the product to. With the help of an updated priority queue(Heap), we found the farthest retailer asking for the delivery. Btrack function helped in identifying whether there are retailers on the path which can be delivered to other than the farthest retailer. We used a stack and a queue to maintain the order of delivery for each carrier. If the carrier is still capable of delivering to some retailers, the most suitable retailer would be the one whose sum of shortest distance from the wholesaler and the current retailer is minimum. The process will continue for every retailer delivered till the point either the carrier becomes empty or there are no feasible deliveries resulting into the returning of the carrier to the wholesaler. If the carrier returns to the wholesaler and still delivery to some retailer is left then another carrier is dispatched following the same process for remaining deliveries.
 
 
-Contribution by Ritik and Priyal : 
+Contribution by Priyal Jain and Ritik Jain: 
 
 The main contribution by our side was to create an updated structure of priority queue by modifying heap with pairs which also helps for deleting an element from any position. A Heap must also satisfy the heap-order property, the value stored at each node is greater than or equal to its children, of max heap. We made some of its standard functions like push, pop, getMaximum and isEmpty with slight modifications. If some element in it is violating some property of the Heap then the PercolateDown function is used to restore that property. Heapify is the process of converting an array of elements into a Heap. 
 
