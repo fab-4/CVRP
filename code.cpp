@@ -11,9 +11,9 @@ vector<pair<int, int>> dist(V, std::make_pair(INT_MAX, 0));//stores parent of th
 int C = 15;      // carrier capacity
 int cost = 0;// total transportation cost
 int carriers = 0;// num of carriers required
-stack <int> s;// to store path of a particular carrier
+stack <int> s;// to store path of a particular carrier while backtracking using btrack()
 queue <int> q;// to store path of a particular carrier
-vector<pair<int, int>> eligibleNodes(V, std::make_pair(INT_MAX, 0));// map to store distance of all eligible nodes from the current source node
+vector<pair<int, int>> eligibleNodes(V, std::make_pair(INT_MAX, 0));// vector to store distance of all eligible nodes from the current source node
 
 //Declaration of heap
 struct Heap
@@ -122,7 +122,7 @@ void Push(struct Heap *h, int node, int dist)
     while(i > 0 && dist > h->array[(i-1)/2].second)  {
         h->array[i].first = h->array[(i-1)/2].first;
 	    h->array[i].second = h->array[(i-1)/2].second;
-	    i = (i - 1) / 2;
+	    i = (i-1)/2;
     }
     h->array[i] = make_pair(node, dist);
 }
@@ -157,7 +157,7 @@ int btrack(struct Heap *upq,vector<pair<int, int>> &distance, int src, int del, 
     int par = distance[del].second; // parent of node selected for delivery
     int temp = tempcap - qty; // carrier capacity without del's requirement
     while(par != src) {
-        if(!tempcap)
+        if(!temp)
             break;
         if(R[par] > 0 && R[par] <= temp) {
             // Delete par from priority queue
@@ -190,7 +190,7 @@ void shortestPath(vector<pair<int,int>> adj[], vector<pair<int, int>> &distance,
     priority_queue< pair<int, int>, vector <pair<int, int>> , greater<pair<int, int>> > pq; 
     pq.push(make_pair(0, src)); 
     distance[src].first = 0; 
-    distance[src].second = src;
+    distance[src].second = -1;
     while (!pq.empty()) 
     { 
         int u = pq.top().second; 
@@ -249,10 +249,11 @@ int main() {
             if(R[i]/C) {
                 carriers += R[i]/C;
                 printf("Node %d will recieve %d carriers of full capacity\n", i, R[i]/C);
-                cost += dist[i].first * R[i]/C;
+                cost += (2 * dist[i].first * (R[i]/C));
                 R[i] = R[i] % C;
             }
-            Push(upq, i, dist[i].first);// Push it into the upq
+            if(R[i] != 0)
+                Push(upq, i, dist[i].first);// Push it into the upq
         }
     }
     while(!IsEmpty(upq)/*while upq is not empty*/) {
@@ -263,22 +264,18 @@ int main() {
         int tempcap = btrack(upq, dist, 0, del_f, R[del_f], C);//remaining carrier capacity after delivering to selected node and it's parent.
         if(tempcap != 0) {
             while(tempcap) {
-    			// erase the eligible map
+    			// erase the eligibleNodes vector
     			eligibleNodes.clear();
     			for(int i = 0; i < V; i++) {
     			    eligibleNodes.push_back(make_pair(INT_MAX, del_f));
     			}
     			shortestPath(E, eligibleNodes, V, del_f);// find and store all the eligible nodes in the global map declared and their shortest distance in it.
-    			// if the map is empty break
-    			if(!eligibleNodes.size())
-    			    break;
-    			else {
     			    int del_n;
     			    int min = INT_MAX;
     			    int sum = min;
     			    for(int i = 1; i < V; i++) {
     			        if(R[i] <= tempcap && R[i] > 0 && i != del_f) {
-        			        sum = eligibleNodes[i].first + dist[eligibleNodes[i].second].first;
+        			        sum = eligibleNodes[i].first + dist[i].first;
         			        if(sum < min) {
         			            min = sum;
         			            del_n = i;
@@ -300,10 +297,9 @@ int main() {
     			    }
     			    else
     			        break;
-    			}
     		}
-    		cost += dist[del_f].first;
         }
+		cost += dist[del_f].first;
         carriers++;
         printf("The route for carrier %d is : 0 => ", carriers);
         while(!q.empty()) {
@@ -316,4 +312,3 @@ int main() {
     printf("All the retailers have received their order with total cost = %d", cost);
     return 0;
 }
-
